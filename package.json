@@ -16,7 +16,10 @@
   "license": "ISC",
   "dependencies": {
     "@types/inquirer-autocomplete-prompt": "^3.0.0",
+    "chalk": "4",
     "commander": "^8.0.0",
+    "cross-spawn": "^7.0.3",
+    "envinfo": "^7.8.1",
     "inquirer-autocomplete-prompt": "^3.0.0"
   },
   "devDependencies": {
