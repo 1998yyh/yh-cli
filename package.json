@@ -2,9 +2,8 @@
   "name": "yh-cli",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "bin": {
-    "ycl": "dist/index.cjs"
+    "ycl": "dist/index.js"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
@@ -15,12 +14,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/inquirer-autocomplete-prompt": "^3.0.0",
     "chalk": "4",
     "commander": "^8.0.0",
     "cross-spawn": "^7.0.3",
     "envinfo": "^7.8.1",
-    "inquirer-autocomplete-prompt": "^3.0.0"
+    "fs-extra": "^11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -30,9 +28,11 @@
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
+    "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "eslint": "^8.33.0",
+    "figlet": "^1.5.2",
     "inquirer": "7",
     "rollup": "^3.12.0",
     "rollup-plugin-cleaner": "^1.0.0",

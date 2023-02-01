@@ -10,9 +10,6 @@ import hashbang from "rollup-plugin-hashbang";
 
 
 const plugins = [
-  rollupCleaner({
-    targets:['./dist']
-  }),
   rollupBabel({
     babelrc: false,
     babelHelpers: 'bundled',
@@ -42,15 +39,25 @@ const plugins = [
 ]
 
 
-const buildOptions = {
-  input:['src/index.ts'],
-  output:[
-    {
-      file:'dist/index.cjs',
-      format:'cjs'
-    }
-  ],
+const buildOptions = [{
+  input: ['src/index.ts'],
+  output: [{
+    file: 'dist/index.js',
+    format: 'cjs'
+  }],
+  plugins: [
+    rollupCleaner({
+      targets: ['./dist']
+    }),
+    ...plugins
+  ]
+}, {
+  input: ['lib/create.ts'],
+  output: [{
+    dir: 'dist/lib',
+    format: 'cjs'
+  }],
   plugins
-}
+}]
 
 export default buildOptions

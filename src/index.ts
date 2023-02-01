@@ -15,9 +15,9 @@ program
 program
   .command('create <app-name>')
   .description('create a new project')
-  .action((name:unknown, options:unknown) => {
+  .action((name:string, options: Record<string, any>) => {
     // 打印执行结果
-    console.log('name:',name,'options:',options)
+    require('./lib/create.js')(name,options)
   })
   
 
