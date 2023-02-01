@@ -3,6 +3,7 @@
 const path = require('path')
 const fs = require('fs-extra')
 const inquirer = require('inquirer')
+const Generator = require('./generator.js')
 
 
 module.exports = async function (name: string, options: Record<string, any>) {
@@ -42,11 +43,11 @@ module.exports = async function (name: string, options: Record<string, any>) {
       if(action){
         console.log(`\r\nRemoving...`)
         await fs.remove(targetAir)
-      }else{
-        console.log('正在创建...')
       }
     }
   }else{
+    const generator = new Generator(name,targetAir);
+    generator.create();
     console.log('创建')
   }
 }

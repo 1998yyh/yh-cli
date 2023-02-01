@@ -6,6 +6,7 @@ import rollupCommonjs from '@rollup/plugin-commonjs'
 import rollupCleaner from 'rollup-plugin-cleaner'
 import rollupNodeResolve from '@rollup/plugin-node-resolve'
 import hashbang from "rollup-plugin-hashbang";
+import glob from 'glob'
 
 
 const plugins = [
@@ -40,11 +41,13 @@ const plugins = [
   hashbang.default()
 ]
 
+const entries = glob.sync('./lib/*.ts')
+
 
 const buildOptions = [{
   input: ['src/index.ts'],
   output: [{
-    file: 'dist/index.js',
+    file: 'dist/index.cjs',
     format: 'cjs'
   }],
   plugins: [
@@ -54,7 +57,7 @@ const buildOptions = [{
     ...plugins
   ]
 }, {
-  input: ['lib/create.ts'],
+  input: entries,
   output: [{
     dir: 'dist/lib',
     format: 'cjs'
