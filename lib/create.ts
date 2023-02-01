@@ -2,10 +2,8 @@
 
 const path = require('path')
 const fs = require('fs-extra')
-const figlet  = require('figlet')
 const inquirer = require('inquirer')
 
-console.log(inquirer,figlet)
 
 module.exports = async function (name: string, options: Record<string, any>) {
   // 执行创建命令
@@ -22,8 +20,31 @@ module.exports = async function (name: string, options: Record<string, any>) {
     if (options.force) {
       await fs.remove(targetAir)
     } else {
-      
-      // TODO：询问用户是否确定要覆盖
+      // 询问用户是否确定要覆盖
+      const { action } = await inquirer.prompt([
+        {
+          name: 'action',
+          type: 'list',
+          message: '检查到当前目录已存在,是否要覆盖',
+          choices: [
+            {
+              name: '覆盖',
+              value:true
+            },{
+              name: '取消',
+              value: false
+            }
+          ]
+        }
+      ])
+
+      // 覆盖当前
+      if(action){
+        console.log(`\r\nRemoving...`)
+        await fs.remove(targetAir)
+      }else{
+        console.log('正在创建...')
+      }
     }
   }else{
     console.log('创建')

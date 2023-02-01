@@ -3,7 +3,9 @@ const { Command } = require('commander')
 const program = new Command()
 const inquirer = require('inquirer')
 const chalk = require('chalk')
+const figlet  = require('figlet')
 const spawn = require('cross-spawn')
+
 
 // 配置版本号信息
 program
@@ -74,9 +76,16 @@ program.on('command:*', () => {
 
 
 program.on('--help', () => {
-  console.log();
-  console.log(`  Run ${chalk.cyan(`vue <command> --help`)} for detailed usage of given command.`)
-  console.log()
+  // 使用 figlet 绘制 Logo
+  console.log('\r\n' + figlet.textSync('hello', {
+    font: 'Ghost',
+    horizontalLayout: 'default',
+    verticalLayout: 'default',
+    width: 80,
+    whitespaceBreak: true
+  }));
+  // 新增说明信息
+  console.log(`\r\nRun ${chalk.cyan(`ycl <command> --help`)} show details\r\n`)
 })
 
 // 解析用户执行命令传入的参数

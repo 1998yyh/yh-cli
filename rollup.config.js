@@ -8,7 +8,6 @@ import rollupNodeResolve from '@rollup/plugin-node-resolve'
 import hashbang from "rollup-plugin-hashbang";
 
 
-
 const plugins = [
   rollupBabel({
     babelrc: false,
@@ -24,7 +23,10 @@ const plugins = [
     ],
     rules: {
       '@typescript-eslint/ban-ts-comment': 2
-    }
+    },
+    plugins:[
+      '@babel/plugin-transform-modules-commonjs'
+    ]
   }),
   rollupNodeResolve(),
   rollupAlias(),
