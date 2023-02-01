@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 const { Command } = require('commander')
-const program = new Command()
-const inquirer = require('inquirer')
 const chalk = require('chalk')
 const figlet  = require('figlet')
 const spawn = require('cross-spawn')
 
-
+const program = new Command()
 // 配置版本号信息
 program
   .version(`v${require('../package.json').version}`)
