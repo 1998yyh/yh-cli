@@ -47,7 +47,7 @@ const entries = glob.sync('./lib/*.ts')
 const buildOptions = [{
   input: ['src/index.ts'],
   output: [{
-    file: 'dist/index.cjs',
+    dir: 'dist/',
     format: 'cjs'
   }],
   plugins: [

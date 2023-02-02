@@ -2,9 +2,8 @@
   "name": "yh-cli",
   "version": "1.0.0",
   "description": "",
-  "type":"module",
   "bin": {
-    "ycl": "dist/index.cjs"
+    "ycl": "dist/index.js"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
