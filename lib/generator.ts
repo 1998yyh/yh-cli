@@ -2,7 +2,7 @@
 
 const wrapLoading = require('./loading.js')
 const downloadGitRepo = require('download-git-repo')
-const { getRepoList, getTagList } = require('./http.js')
+const { getRepoList, gitBranchList } = require('./http.js')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const util = require('util')
@@ -21,74 +21,62 @@ class Generator {
     this.targetDir = targetDir;
   }
 
-  // 获取用户选择的模板
-  // 1）从远程拉取模板数据
-  // 2）用户选择自己新下载的模板名称
-  // 3）return 用户选择的名称
-
   async getRepo() {
-    // 1）从远程拉取模板数据
+    
     const repoList = await wrapLoading(getRepoList, '正在获取模板信息');
     if (!repoList) return;
 
     // 过滤我们需要的模板名称
     const repos = repoList.map((item: Record<string, any>) => item.name);
 
-    // 2）用户选择自己新下载的模板名称
+    // 选择自己使用的模板
     const { repo } = await inquirer.prompt({
       name: 'repo',
       type: 'list',
       choices: repos,
-      message: 'Please choose a template to create project'
+      message: '请选择对应模板构建项目'
     })
 
-    // 3）return 用户选择的名称
     return repo;
   }
 
-  // 获取用户选择的版本
-  // 1）基于 repo 结果，远程拉取对应的 tag 列表
-  // 2）用户选择自己需要下载的 tag
-  // 3）return 用户选择的 tag
 
-  async getTag(repo: string) {
-    // 1）基于 repo 结果，远程拉取对应的 tag 列表
-    const tags = await wrapLoading(getTagList, 'waiting fetch tag', repo);
-    if (!tags) return;
+  async getBranch(repo: string) {
+    // 基于 repo 结果，远程拉取对应的 tag 列表
+    const branches = await wrapLoading(gitBranchList, 'waiting fetch tag', repo);
+    if (!branches) return;
 
     // 过滤我们需要的 tag 名称
-    const tagsList = tags.map((item: Record<string, any>) => item.name);
+    const branchesList = branches.map((item: Record<string, any>) => item.name);
 
     // 2）用户选择自己需要下载的 tag
-    const { tag } = await inquirer.prompt({
+    const { branch } = await inquirer.prompt({
       name: 'tag',
       type: 'list',
-      choices: tagsList,
-      message: 'Place choose a tag to create project'
+      choices: branchesList,
+      message: '请选择对应分支构建项目'
     })
 
     // 3）return 用户选择的 tag
-    return tag
+    return branch
   }
 
   async download(repo: string, tag: string) {
     // 1）拼接下载地址
-    const requestUrl = `zhurong-cli/${repo}${tag ? '#' + tag : ''}`;
+    const requestUrl = `1998yyh/${repo}${tag ? 'tree' + tag : ''}`;
     // 2）调用下载方法
     await wrapLoading(
       this.downloadGitRepo, // 远程下载方法
       'waiting download template', // 加载提示信息
       requestUrl, // 参数1: 下载地址
       path.resolve(process.cwd(), this.targetDir)) // 参数2: 创建位置
-
   }
 
   async create() {
-
     // 获取模板名称
     const repo = await this.getRepo()
     // 获取tag
-    const tag = await this.getTag(repo)
+    const tag = await this.getBranch(repo)
     // 下载对应模板
     await this.download(repo,tag)
     // 模板使用提示

@@ -18,7 +18,7 @@ axios.interceptors.response.use((res:resData) => {
  * @returns Promise
  */
 async function getRepoList() {
-  return axios.get('https://api.github.com/orgs/zhurong-cli/repos')
+  return axios.get('https://api.github.com/users/1998yyh/repos')
 }
 
 /**
@@ -26,13 +26,14 @@ async function getRepoList() {
  * @param {string} repo 模板名称
  * @returns Promise
  */
-async function  getTagList(repo:string) {
-  return axios.get(`https://api.github.com/repos/zhurong-cli/${repo}/tags`)
+async function  gitBranchList(repo:string) {
+  console.log('repo',repo)
+  return axios.get(`https://api.github.com/repos/1998yyh/${repo}/branches`)
 }
 
 module.exports = {
   getRepoList,
-  getTagList
+  gitBranchList
 }
 
 export {};
