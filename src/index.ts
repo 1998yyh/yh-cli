@@ -20,6 +20,14 @@ program
     require('./lib/create.js')(name,options)
   })
   
+// 创建文件(几个预设的)
+program
+  .command('template <template-name>')
+  .description('create a preset template')
+  .action((name:string, options: Record<string, any>) => {
+    // 打印执行结果
+    require('./lib/createTemplate.js')(name,options)
+  })
 
 // 这块是去测试
 program
